@@ -95,22 +95,10 @@ const APIClient = {
         return response.data;
     },
     async getProfileData() {
-        if (this._userid === 0) {
-            return {
-                profile: {
-                    id: 0,
-                    name: "Unknown user",
-                    address: "",
-                    phoneNumber: "",
-                    email: this._auth
-                }
-            }
-        }
-        else {
-            await this.loadSettings();
-            const response = await axios.get(`${this._apiUrl}/profiles/navbar/${this._userid}`, headersConfig(this._auth));
-            return response.data;
-        }
+        await this.loadSettings();
+        const response = await axios.get(`${this._apiUrl}/profiles/navbar/me`, headersConfig(this._auth));
+
+        return response.data;
     },
     async postProductToCart(detailProduct) {
         await this.loadSettings();
